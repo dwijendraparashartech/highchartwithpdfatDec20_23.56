@@ -1,0 +1,99 @@
+<p id="notice"><%= notice %></p>
+<br><br>
+
+
+<h1>Students</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.first_name %></td>
+        <td><%= student.last_name %></td>
+        <td><%= link_to 'Show', student %></td>
+        <td><%= link_to 'Edit', edit_student_path(student) %></td>
+        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'PDF', students_path(@students, format: :pdf) %>
+<%= link_to 'New Student', new_student_path %>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+
+
+<div id="container" style="height: 400px;"></div>
+
+<script>
+    Highcharts.chart('container', {
+
+            title: {
+                    text: 'Solar Employment Growth by Sector, 2010-2016'
+            },
+
+            subtitle: {
+                    text: 'Source: thesolarfoundation.com'
+            },
+
+            yAxis: {
+                    title: {
+                            text: 'Number of Employees'
+                    }
+            },
+            legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                    series: {
+                            label: {
+                                    connectorAllowed: false
+                            },
+                            pointStart: 2021  
+                    }
+            },
+
+            series: [
+                <% @students.each do |op|%>
+                  {
+                    name: 'Installation',
+                    data: [<%#= Student.all.group_by { |c| c.created_at.to_date }%>10,20,30]
+                  },
+                <% end %>
+            ], 
+
+            responsive: {
+                    rules: [{
+                            condition: {
+                                    maxWidth: 500
+                            },
+                            chartOptions: {
+                                    legend: {
+                                            layout: 'horizontal',
+                                            align: 'center',
+                                            verticalAlign: 'bottom'
+                                    }
+                            }
+                    }]
+            }
+
+    });
+</script>
