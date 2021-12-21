@@ -68,7 +68,6 @@ class StudentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
-      byebug
       @student = Student.find(params[:id])
     end
 
