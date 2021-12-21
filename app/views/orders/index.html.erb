@@ -1,26 +1,24 @@
 <p id="notice"><%= notice %></p>
-<br><br>
 
-
-<h1>Students</h1>
+<h1>Orders</h1>
 
 <table>
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Price</th>
+      <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @students.each do |student| %>
+    <% @orders.each do |order| %>
       <tr>
-        <td><%= student.first_name %></td>
-        <td><%= student.last_name %></td>
-        <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_student_path(student) %></td>
-        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= order.price %></td>
+        <td><%= order.status %></td>
+        <td><%= link_to 'Show', order %></td>
+        <td><%= link_to 'Edit', edit_order_path(order) %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,15 +26,13 @@
 
 <br>
 
-<%= link_to 'PDF', students_path(@students, format: :pdf) %>
-<%= link_to 'New Student', new_student_path %>
-
+<%= link_to 'New Order', new_order_path %>
+<%#= Order.all.group_by {|date| date.created_at.to_date}%>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
-
 
 <div id="container" style="height: 400px;"></div>
 
@@ -44,16 +40,21 @@
     Highcharts.chart('container', {
 
             title: {
-                    text: 'Solar Employment Growth by Sector, 2010-2016'
+                    text: '<b>Orders at BitternTec  </b>'
             },
 
             subtitle: {
-                    text: 'Source: thesolarfoundation.com'
+                    text: 'www.bitterntec.com'
             },
 
             yAxis: {
                     title: {
-                            text: 'Number of Employees'
+                            text: 'Status'
+                    }
+            },
+            xAxis: {
+                    title: {
+                            text: 'Orders'
                     }
             },
             legend: {
@@ -67,20 +68,30 @@
                             label: {
                                     connectorAllowed: false
                             },
-                            pointStart: 2021  
+                            pointStart: 0
+                    }
+            },
+
+            plotOptions: {
+                    parellel: {
+                            label: {
+                                    connectorAllowed: false
+                            },
+                            pointStart: 0
                     }
             },
 
             series: [
-                <% @students.each do |op|%>
+                <% @orders.each do |order|%>
                   {
-                    name: 'Installation',
-                    @your_data = <%= Student.all.group_by { |c| c.created_at.to_date }%>
-                    data: <%= raw @your_data %>
+                    name: 'Orders',
+                     data: [<%#= Order.all.group_by {|date| date.created_at.to_date}%>1,2,3.4,5]
+                    // data: <%#= Order.all.group_by {|date| date.created_at.to_date}%>
                   },
                 <% end %>
             ], 
 
+     
             responsive: {
                     rules: [{
                             condition: {

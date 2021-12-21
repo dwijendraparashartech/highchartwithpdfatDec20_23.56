@@ -11,3 +11,12 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+//= require highcharts
+// to get the new features in 2.3.0:
+//= require highcharts/highcharts-more
+
+//= require highcharts/modules/data
+
+//= require highcharts/themes/dark-blue
+

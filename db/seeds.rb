@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+5.times do |i|
+ order = Order.create(price: 100 * i, status: 'dispatched')
+ order.update(created_at: order.created_at - i.day)
+end
+
+5.times do |i|
+ order = Order.create(price: 100 * i, status: 'pending')
+ order.update(created_at: order.created_at - i.day)
+end
+
+5.times do |i|
+ order = Order.create(price: 100 * i, status: 'delivered')
+ order.update(created_at: order.created_at - i.day)
+end
